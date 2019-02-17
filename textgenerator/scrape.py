@@ -109,8 +109,12 @@ class HWZScrapper(Scrapper):
 
             for post in posts:
                 count += 1
-                post_content = post.find("div", {"class": "post_message"}).text
-                content_list.append(post_content)
+                try:
+                    post_content = post.find("div", {"class": "post_message"}).text
+                    content_list.append(post_content)
+                except:
+                    print("Exception occured.")
+                    continue
         
         return content_list
 

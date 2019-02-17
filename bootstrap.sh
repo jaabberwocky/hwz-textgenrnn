@@ -11,5 +11,6 @@ git clone https://github.com/jaabberwocky/hwz-textgenrnn .
 pip3 install virtualenv
 virtualenv venv
 source venv/bin/activate
-pip3 install -r requirements.textgenrnn
+pip3 install -r requirements.txt
+
 
