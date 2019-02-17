@@ -128,6 +128,11 @@ class HWZScrapper(Scrapper):
         # get pagination
         numPages = int(page_soup.find("div", {"class":"pagination"}).find("span").text.split(" ")[-1])
         pageCounter = 1
+
+        # open file for writing
+        if os.path.isfile("scrappedText.txt"):
+            os.remove("scrappedText.txt")
+        f = open("scrappedText.txt", "w")
         
         while pageCounter <= numPages:
             threadListingURL = url + "index%d.html" % pageCounter
@@ -139,10 +144,14 @@ class HWZScrapper(Scrapper):
             threads = page_soup.find_all("a", {"id":re.compile("thread_title*")})
             for t in threads:
                 print("Scrapping thread %s" % t)
-                self.scrappedContent.append(self.scrapeThread(root + t['href']))
+                content = self.scrapeThread(root + t['href'])
+                for post in content:
+                    f.write(post + "\n")
+                self.scrappedContent.append(content)
 
             pageCounter += 1
-
+            
+        f.close()
         return None
 
     def writeScrappedContent(self):
