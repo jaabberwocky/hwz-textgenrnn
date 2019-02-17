@@ -115,7 +115,6 @@ class HWZScrapper(Scrapper):
 
     def scrapeForum(self, url):
         root = "https://forums.hardwarezone.com.sg"
-        threadQueue = Queue.Queue()
         
         # get initial page soup and html
         page_html = self.getPageHTML(url)
@@ -134,10 +133,6 @@ class HWZScrapper(Scrapper):
             # get threads
             threads = page_soup.find_all("a", {"id":re.compile("thread_title*")})
             for t in threads:
-                threadQueue.put(t)
-
-            while !threadQueue.empty():
-                q = threadQueue.get()
                 print("Scrapping thread %s" % t)
                 self.scrappedContent.append(self.scrapeThread(root + t['href']))
 
@@ -157,6 +152,11 @@ class HWZScrapper(Scrapper):
             f.write(s+"\n")
         f.close()
         return None
+
+if __name__=="__main__":
+    t = HWZScrapper()
+    t.scrapeForum("https://forums.hardwarezone.com.sg/eat-drink-man-woman-16/")
+    t.writeScrappedContent()
 
         
        
