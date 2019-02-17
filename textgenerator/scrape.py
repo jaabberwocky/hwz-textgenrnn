@@ -21,7 +21,7 @@ class Scrapper:
         return None
     
 class HWZScrapper(Scrapper):
-    def __init__(self):
+    def __init__(self, target = None):
         self.type = 'HWZ'
         self.scrappedContent = []
     
@@ -78,11 +78,16 @@ class HWZScrapper(Scrapper):
         '''
         return page_soup.findAll("div", {"class": "post-wrapper"})
 
-    def scrapeThread(self, url):
+    def scrapeThread(self, url = None):
         '''
         Scrapes an entire thread and returns all the posts
         '''
-
+        # checks for url, if not found, try to use target
+        if url is None and self.getTarget() != None:
+            url = self.getTarget()
+        elif url is None and self.getTarget() is None:
+            raise ValueError("URL not provided and target given at constructor is blank.")
+        
         my_url = url
 
         # get initial page soup and html
@@ -150,7 +155,7 @@ class HWZScrapper(Scrapper):
                 self.scrappedContent.append(content)
 
             pageCounter += 1
-            
+
         f.close()
         return None
 
