@@ -1,0 +1,1 @@
+from textgenerator.scrape import *
