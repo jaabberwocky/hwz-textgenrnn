@@ -148,11 +148,14 @@ class HWZScrapper(Scrapper):
             # get threads
             threads = page_soup.find_all("a", {"id":re.compile("thread_title*")})
             for t in threads:
-                print("Scrapping thread %s" % t)
-                content = self.scrapeThread(root + t['href'])
-                for post in content:
-                    f.write(post + "\n")
-                self.scrappedContent.append(content)
+                try:
+                    print("Scrapping thread %s" % t)
+                    content = self.scrapeThread(root + t['href'])
+                    for post in content:
+                        f.write(post + "\n")
+                    self.scrappedContent.append(content)
+                except:
+                    pass
 
             pageCounter += 1
 
