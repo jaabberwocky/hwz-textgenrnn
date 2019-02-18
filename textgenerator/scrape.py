@@ -152,7 +152,7 @@ class HWZScrapper(Scrapper):
                     print("Scrapping thread %s" % t)
                     content = self.scrapeThread(root + t['href'])
                     for post in content:
-                        f.write(post + "\n")
+                        f.write(post.strip() + "\n")
                     self.scrappedContent.append(content)
                 except:
                     pass
