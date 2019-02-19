@@ -8,7 +8,7 @@ else:
     trainFilePath = sys.argv[1]
 
 textgen = textgenrnn()
-textgen.train_from_file(trainFilePath, num_epochs = 1, batch_size = 512)
+textgen.train_from_file(trainFilePath, num_epochs = 1, verbose = 1)
 if os.path.isfile('textgenmodel_saved.hdf5'):
     os.remove('textgenmodel_saved.hdf5')
 textgen.save('textgenmodel_saved.hdf5')
