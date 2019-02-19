@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 import re
 import os
-import time
 
 class Scrapper:
     type = None
@@ -169,7 +168,6 @@ if __name__=="__main__":
     tic = time.time()
     t = HWZScrapper()
     t.scrapeForum("https://forums.hardwarezone.com.sg/eat-drink-man-woman-16/")
-    t.writeScrappedContent()
     toc = time.time()
     print("Total time taken: %.2fs " % toc-tic)
 
