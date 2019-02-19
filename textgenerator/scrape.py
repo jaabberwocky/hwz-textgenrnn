@@ -123,7 +123,10 @@ class HWZScrapper(Scrapper):
         
         return content_list
 
-    def scrapeForum(self, url):
+    def scrapeForum(self, url, saveFile = "scrappedText.txt"):
+        '''
+        Scrape the entire forum and save it into a txt file at saveFile.
+        '''
         root = "https://forums.hardwarezone.com.sg"
         
         # get initial page soup and html
@@ -135,9 +138,9 @@ class HWZScrapper(Scrapper):
         pageCounter = 1
 
         # open file for writing
-        if os.path.isfile("scrappedText.txt"):
-            os.remove("scrappedText.txt")
-        f = open("scrappedText.txt", "w")
+        if os.path.isfile(saveFile):
+            os.remove(saveFile)
+        f = open(saveFile, "w")
         
         while pageCounter <= numPages:
             threadListingURL = url + "index%d.html" % pageCounter
@@ -159,19 +162,6 @@ class HWZScrapper(Scrapper):
 
             pageCounter += 1
 
-        f.close()
-        return None
-
-    def writeScrappedContent(self):
-        '''
-        Writes scrapped content to text file.
-        '''
-        if os.path.isfile("scrappedText.txt"):
-            os.remove("scrappedText.txt")
-        f = open("scrappedText.txt", "w")
-
-        for s in self.scrappedContent:
-            f.write(s+"\n")
         f.close()
         return None
 
