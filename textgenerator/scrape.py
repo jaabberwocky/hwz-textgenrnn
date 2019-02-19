@@ -164,12 +164,5 @@ class HWZScrapper(Scrapper):
         f.close()
         return None
 
-if __name__=="__main__":
-    tic = time.time()
-    t = HWZScrapper()
-    t.scrapeForum("https://forums.hardwarezone.com.sg/eat-drink-man-woman-16/")
-    toc = time.time()
-    print("Total time taken: %.2fs " % toc-tic)
-
         
        
