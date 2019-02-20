@@ -1,6 +1,8 @@
 from textgenrnn import textgenrnn
 import sys
 import os
+import datetime
+import uuid
 
 if len(sys.argv) != 3:
     raise Exception("Incorrect number of commandline arguments.")
@@ -10,6 +12,11 @@ else:
 
 textgen = textgenrnn()
 textgen.train_from_file(trainFilePath, num_epochs = num_epochs, verbose = 1)
-if os.path.isfile('textgenmodel_saved.hdf5'):
-    os.remove('textgenmodel_saved.hdf5')
-textgen.save('textgenmodel_saved.hdf5')
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+filename = 'textgenmodel_saved_%s.hdf5' % timestamp
+try:
+    if os.path.isfile(filename):
+        os.remove(filename)
+    textgen.save('textgenmodel_saved.hdf5')
+except:
+    textgen.save(str(uuid.uuid4())+".hdf5")
